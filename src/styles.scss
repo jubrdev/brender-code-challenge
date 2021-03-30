@@ -28,11 +28,18 @@ button.action {
   font-size: 18px;
   font-family: Helvetica;
   transition: all 0.2s ease-in-out;
+  margin: 0 10px;
   &:hover {
     cursor: pointer;
     transform: scale(1.05);
   }
   &:focus {
     outline: none;
+  }
+}
+mat-icon {
+  vertical-align: middle;
+  &:hover {
+    cursor: pointer;
   }
 }

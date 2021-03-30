@@ -21,6 +21,7 @@
                   matInput
                   placeholder="Ex. round of drinks"
                   formControlName="type"
+                  required
                 />
               </mat-form-field>
             </td>
@@ -52,15 +53,18 @@
         </tr>
       </table>
     </form>
-
-    <p>Form Value: {{ expenseForm.value | json }}</p>
-
-    <p>Form Status: {{ expenseForm.status }}</p>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button>Save</button>
-    <button mat-button (click)="addExpense()">Add</button>
+    <div fxFlex="row" fxLayoutAlign="center center">
+      <button
+        mat-button
+        mat-dialog-close
+        (click)="saveform()"
+        [disabled]="!expenseForm.valid"
+      >
+        Save
+      </button>
+      <button mat-button (click)="addExpense()">Add Item</button>
+    </div>
   </mat-dialog-actions>
 </div>

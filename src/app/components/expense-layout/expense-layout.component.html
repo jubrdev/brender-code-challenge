@@ -1,12 +1,30 @@
 <div class="container" fxLayout="column">
   <div
     class="expenses-list"
-    fxFlex="80"
+    fxFlex="30"
     fxLayout="column"
     fxLayoutAlign="start center"
   >
     <div class="header">brender billing</div>
     <div class="sub-header">begin adding expenses below</div>
+  </div>
+  <div
+    *ngIf="(expenses | async).length"
+    fxFlex="50"
+    fxLayoutAlign="center start"
+  >
+    <div class="receipt-container">
+      <div *ngFor="let expense of expenses | async; index as i">
+        <mat-icon (click)="editExpenses(expense, i)">edit</mat-icon>
+        {{ expense.name }} paid ${{ getTotalAmount(expense.expenseItems) }} in
+        total for:
+        <ul *ngFor="let item of expense.expenseItems">
+          <li>
+            {{ item.type ? item.type : "An item" }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
   <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
     <button
@@ -15,6 +33,14 @@
       (click)="createNewExpense()"
     >
       New Expense <mat-icon>add_circle</mat-icon>
+    </button>
+
+    <button
+      *ngIf="(expenses | async).length"
+      class="action"
+      (click)="calculate()"
+    >
+      Calculate<mat-icon> monetization_on</mat-icon>
     </button>
   </div>
 </div>

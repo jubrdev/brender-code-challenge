@@ -5,9 +5,6 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: left top;
-  mat-icon {
-    vertical-align: middle;
-  }
   button.inactive {
     transform: scale(1);
     animation: pulse-black 2s infinite;
@@ -28,5 +25,14 @@
         box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
       }
     }
+  }
+
+  .receipt-container {
+    width: 50%;
+    min-height: 40vh;
+    background-color: rgb(255, 255, 255, 0.7);
+    border-radius: 30px;
+    padding: 20px 40px;
+    margin: 20px 0;
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { BehaviorSubject } from "rxjs";
+import { ExpenseService } from "src/app/services/expense.service";
 import { ExpenseModalComponent } from "../expense-modal/expense-modal.component";
-
 @Component({
   selector: "app-expense-layout",
   templateUrl: "./expense-layout.component.html",
@@ -9,10 +10,29 @@ import { ExpenseModalComponent } from "../expense-modal/expense-modal.component"
 })
 export class ExpenseLayoutComponent implements OnInit {
   activeButtonState: Boolean = false;
+  expenses: BehaviorSubject<any>;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public service: ExpenseService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.expenses = this.service.expenses;
+  }
+
+  getTotalAmount(items) {
+    return items.reduce((prev, cur) => {
+      return prev + cur.amount;
+    }, 0);
+  }
+
+  editExpenses(expense, index) {
+    this.dialog.open(ExpenseModalComponent, {
+      data: {
+        title: `Edit ${expense.name}'s Expenses`,
+        form: expense,
+        index,
+      },
+    });
+  }
 
   createNewExpense() {
     // If button has never been clicked then change its state to activated
@@ -22,13 +42,15 @@ export class ExpenseLayoutComponent implements OnInit {
       data: {
         title: "Add New Expense",
         form: {
-          name: "Juliet",
-          items: [
-            { type: "pencil", amount: 5.25, note: "pencil note" },
-            { type: "paper", amount: 1.98, note: "paper note" },
-          ],
+          name: "",
+          expenseItems: [{ type: "", amount: null, note: "" }],
         },
+        index: null,
       },
     });
+  }
+
+  calculate() {
+    console.log("do something here");
   }
 }

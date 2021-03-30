@@ -1,11 +1,30 @@
-// ::ng-deep .mat-dialog-container {
-//   width: 600px;
-//   height: 400px;
-// }
+::ng-deep .mat-dialog-container {
+  width: 600px;
+  height: 400px;
+  .mat-form-field-infix {
+    width: auto;
+  }
+}
 
-mat-icon {
-  vertical-align: middle;
+button {
+  width: 90px;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  color: #fff;
+  background-color: #000;
+  font-size: 14px;
+  font-family: Helvetica;
+  margin: 10px 5px;
   &:hover {
     cursor: pointer;
+    background-color: rgb(140, 179, 133);
+  }
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    background-color: rgb(124, 122, 122);
+    cursor: not-allowed;
   }
 }
