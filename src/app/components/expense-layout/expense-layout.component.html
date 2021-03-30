@@ -13,18 +13,27 @@
     fxFlex="50"
     fxLayoutAlign="center start"
   >
-    <div class="receipt-container">
-      <div *ngFor="let expense of expenses | async; index as i">
-        <mat-icon (click)="editExpenses(expense, i)">edit</mat-icon>
-        {{ expense.name }} paid ${{
-          getTotalAmount(expense.expenseItems) | number: "1.2-2"
-        }}
-        in total for:
-        <ul *ngFor="let item of expense.expenseItems">
-          <li>
-            {{ item.type }}
-          </li>
-        </ul>
+    <div
+      class="receipt-container"
+      fxLayout="column"
+      fxLayoutAlign="space-between start"
+    >
+      <div>
+        <div *ngFor="let expense of expenses | async; index as i">
+          <mat-icon (click)="editExpenses(expense, i)">edit</mat-icon>
+          {{ expense.name }} paid ${{
+            getTotalAmount(expense.expenseItems) | number: "1.2-2"
+          }}
+          in total for:
+          <ul *ngFor="let item of expense.expenseItems">
+            <li>
+              {{ item.type }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="computationResult">
+        <div *ngFor="let result of computationResult">{{ result }}</div>
       </div>
     </div>
   </div>
@@ -38,9 +47,9 @@
     </button>
 
     <button
-      *ngIf="(expenses | async).length"
+      *ngIf="(expenses | async).length > 1"
       class="action"
-      (click)="calculate()"
+      (click)="calculate(expenses.value)"
     >
       Calculate<mat-icon> monetization_on</mat-icon>
     </button>
