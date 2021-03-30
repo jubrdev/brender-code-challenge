@@ -16,11 +16,13 @@
     <div class="receipt-container">
       <div *ngFor="let expense of expenses | async; index as i">
         <mat-icon (click)="editExpenses(expense, i)">edit</mat-icon>
-        {{ expense.name }} paid ${{ getTotalAmount(expense.expenseItems) }} in
-        total for:
+        {{ expense.name }} paid ${{
+          getTotalAmount(expense.expenseItems) | number: "1.2-2"
+        }}
+        in total for:
         <ul *ngFor="let item of expense.expenseItems">
           <li>
-            {{ item.type ? item.type : "An item" }}
+            {{ item.type }}
           </li>
         </ul>
       </div>

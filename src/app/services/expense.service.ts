@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { first, take } from "rxjs/operators";
 
 @Injectable({ providedIn: "root" })
 export class ExpenseService {
@@ -8,7 +7,8 @@ export class ExpenseService {
 
   constructor() {}
 
-  public saveExpenses(expense: any) {
+  // Reuseable method to save new expense object or replace existing expense object if already exists
+  public saveExpenses(expense) {
     if (expense.index !== null) {
       const bhValue = this.expenses.value;
       bhValue.splice(expense.index, 1, expense);

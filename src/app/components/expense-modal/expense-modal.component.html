@@ -12,7 +12,7 @@
         />
       </mat-form-field>
       <table cellspacing="0" formArrayName="expenseItems">
-        <tr *ngFor="let item of getexpenseItems().controls; let i = index">
+        <tr *ngFor="let item of getExpenseItems().controls; let i = index">
           <div [formGroupName]="i">
             <td>
               <mat-form-field>

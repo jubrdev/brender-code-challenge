@@ -10,21 +10,24 @@ import { ExpenseModalComponent } from "../expense-modal/expense-modal.component"
 })
 export class ExpenseLayoutComponent implements OnInit {
   activeButtonState: Boolean = false;
-  expenses: BehaviorSubject<any>;
+  expenses: BehaviorSubject<any[]>;
 
   constructor(private dialog: MatDialog, public service: ExpenseService) {}
 
   ngOnInit() {
+    // Bind to behavior subject and use in template
     this.expenses = this.service.expenses;
   }
 
-  getTotalAmount(items) {
+  // Simple method to add item values
+  public getTotalAmount(items) {
     return items.reduce((prev, cur) => {
       return prev + cur.amount;
     }, 0);
   }
 
-  editExpenses(expense, index) {
+  // Launch modal with existing expense form data
+  public editExpenses(expense, index) {
     this.dialog.open(ExpenseModalComponent, {
       data: {
         title: `Edit ${expense.name}'s Expenses`,
@@ -34,10 +37,11 @@ export class ExpenseLayoutComponent implements OnInit {
     });
   }
 
-  createNewExpense() {
+  public createNewExpense() {
     // If button has never been clicked then change its state to activated
     !this.activeButtonState ? (this.activeButtonState = true) : null;
 
+    // Launch modal with empty form data
     this.dialog.open(ExpenseModalComponent, {
       data: {
         title: "Add New Expense",
@@ -50,7 +54,7 @@ export class ExpenseLayoutComponent implements OnInit {
     });
   }
 
-  calculate() {
+  public calculate() {
     console.log("do something here");
   }
 }
