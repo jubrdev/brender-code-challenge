@@ -1,0 +1,20 @@
+<div class="container" fxLayout="column">
+  <div
+    class="expenses-list"
+    fxFlex="80"
+    fxLayout="column"
+    fxLayoutAlign="start center"
+  >
+    <div class="header">brender billing</div>
+    <div class="sub-header">begin adding expenses below</div>
+  </div>
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+    <button
+      class="action"
+      [ngClass]="{ inactive: !activeButtonState }"
+      (click)="createNewExpense()"
+    >
+      New Expense <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+// ::ng-deep .mat-dialog-container {
+//   width: 600px;
+//   height: 400px;
+// }
+
+mat-icon {
+  vertical-align: middle;
+  &:hover {
+    cursor: pointer;
+  }
+}

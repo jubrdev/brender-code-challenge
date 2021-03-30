@@ -1,0 +1,66 @@
+<div class="modal-container">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <mat-dialog-content>
+    <form [formGroup]="expenseForm">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          placeholder="Jane Doe"
+          formControlName="name"
+          required
+        />
+      </mat-form-field>
+      <table cellspacing="0" formArrayName="expenseItems">
+        <tr *ngFor="let item of getexpenseItems().controls; let i = index">
+          <div [formGroupName]="i">
+            <td>
+              <mat-form-field>
+                <mat-label>Item</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. round of drinks"
+                  formControlName="type"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-label>Cost</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. $26.49"
+                  type="number"
+                  formControlName="amount"
+                />
+                <span matPrefix>$&nbsp;</span>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-label>Notes</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. work happy hour"
+                  type="text"
+                  formControlName="note"
+                />
+              </mat-form-field>
+            </td>
+            <td><mat-icon (click)="removeExpense(i)">delete</mat-icon></td>
+          </div>
+        </tr>
+      </table>
+    </form>
+
+    <p>Form Value: {{ expenseForm.value | json }}</p>
+
+    <p>Form Status: {{ expenseForm.status }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button>Save</button>
+    <button mat-button (click)="addExpense()">Add</button>
+  </mat-dialog-actions>
+</div>

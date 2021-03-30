@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  font-family: Helvetica;
+  background-color: #fff;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.header {
+  font-family: "Righteous", cursive;
+  font-size: 48px;
+  margin: 72px 0 8px 0;
+}
+.sub-header {
+  font-size: 22px;
+  margin-bottom: 36px;
+}
+button.action {
+  width: 180px;
+  height: 60px;
+  border-radius: 30px;
+  border: none;
+  color: #fff;
+  background-color: #000;
+  font-size: 18px;
+  font-family: Helvetica;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+  &:focus {
+    outline: none;
+  }
+}
