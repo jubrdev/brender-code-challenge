@@ -76,10 +76,10 @@ export class ExpenseLayoutComponent implements OnInit {
 
     //Splitting for each person
     filteredArray.forEach((obj) => {
-      const amount = Math.abs(average - obj.amount);
+      const amount = average - obj.amount;
       const value = amount < 0 ? "is owed" : "owes";
       this.computationResult.push(
-        `${obj.name} ${value} ${amount.toFixed(2)} dollars `
+        `${obj.name} ${value} ${Math.abs(amount).toFixed(2)} dollars `
       );
     });
   }
