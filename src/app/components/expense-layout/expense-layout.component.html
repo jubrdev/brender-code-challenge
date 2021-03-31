@@ -33,7 +33,7 @@
         </div>
       </div>
       <div *ngIf="computationResult">
-        <div *ngFor="let result of computationResult">{{ result }}</div>
+        <div *ngFor="let result of computationResult | async">{{ result }}</div>
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
     <button
       *ngIf="(expenses | async).length > 1"
       class="action"
-      (click)="calculate(expenses.value)"
+      (click)="calculateBillSplit()"
     >
       Calculate<mat-icon> monetization_on</mat-icon>
     </button>

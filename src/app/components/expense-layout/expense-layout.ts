@@ -13,13 +13,14 @@ import { ExpenseType } from "../../models/expense.model";
 export class ExpenseLayoutComponent implements OnInit {
   activeButtonState: Boolean = false;
   expenses: BehaviorSubject<ExpenseType[]>;
-  computationResult: String[];
+  computationResult: BehaviorSubject<String[]>;
 
   constructor(private dialog: MatDialog, public service: ExpenseService) {}
 
   ngOnInit() {
     // Bind to behavior subject and use in template
     this.expenses = this.service.expenses;
+    this.computationResult = this.service.computationResult;
   }
 
   // Simple method to add item values
@@ -57,30 +58,7 @@ export class ExpenseLayoutComponent implements OnInit {
     });
   }
 
-  public calculate(expenses) {
-    // clear and past calculations
-    this.computationResult = [];
-
-    const filteredArray = expenses.map((person) => {
-      return {
-        name: person.name,
-        amount: this.getTotalAmount(person.expenseItems),
-      };
-    });
-
-    //find the total and average
-    const sum = filteredArray
-      .map((item) => item.amount)
-      .reduce((acc, cur) => acc + cur);
-    const average = sum / filteredArray.length;
-
-    //Splitting for each person
-    filteredArray.forEach((obj) => {
-      const amount = average - obj.amount;
-      const value = amount < 0 ? "is owed" : "owes";
-      this.computationResult.push(
-        `${obj.name} ${value} ${Math.abs(amount).toFixed(2)} dollars `
-      );
-    });
+  public calculateBillSplit() {
+    this.service.calculate();
   }
 }
