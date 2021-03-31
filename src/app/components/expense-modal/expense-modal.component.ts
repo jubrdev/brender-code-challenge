@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ExpenseService } from "src/app/services/expense.service";
+import { ExpenseItem } from "../../models/expense.model";
+import { DialogData } from "../../models/dialog-data.model";
 
 @Component({
   selector: "app-expense-modal",
@@ -12,7 +14,7 @@ export class ExpenseModalComponent implements OnInit {
   expenseForm: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private fb: FormBuilder,
     private service: ExpenseService
   ) {}
@@ -26,7 +28,7 @@ export class ExpenseModalComponent implements OnInit {
     });
 
     if (this.data.form.expenseItems) {
-      this.data.form.expenseItems.map((item) => this.addRow(item));
+      this.data.form.expenseItems.map((item: ExpenseItem) => this.addRow(item));
     }
   }
 
@@ -40,7 +42,7 @@ export class ExpenseModalComponent implements OnInit {
   }
 
   // add an expense item to form group
-  public addRow(item) {
+  public addRow(item: ExpenseItem) {
     (this.expenseForm.controls.expenseItems as FormArray).push(
       this.fb.group({ ...item })
     );
@@ -52,7 +54,7 @@ export class ExpenseModalComponent implements OnInit {
   }
 
   // Remove expense item object
-  public removeExpense(i) {
+  public removeExpense(i: number) {
     this.getExpenseItems().removeAt(i);
   }
 

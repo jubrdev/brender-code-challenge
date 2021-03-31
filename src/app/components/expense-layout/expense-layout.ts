@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { BehaviorSubject } from "rxjs";
 import { ExpenseService } from "src/app/services/expense.service";
 import { ExpenseModalComponent } from "../expense-modal/expense-modal.component";
+import { ExpenseType } from "../../models/expense.model";
 
 @Component({
   selector: "app-expense-layout",
@@ -11,7 +12,7 @@ import { ExpenseModalComponent } from "../expense-modal/expense-modal.component"
 })
 export class ExpenseLayoutComponent implements OnInit {
   activeButtonState: Boolean = false;
-  expenses: BehaviorSubject<any[]>;
+  expenses: BehaviorSubject<ExpenseType[]>;
   computationResult: String[];
 
   constructor(private dialog: MatDialog, public service: ExpenseService) {}
@@ -29,7 +30,7 @@ export class ExpenseLayoutComponent implements OnInit {
   }
 
   // Launch modal with existing expense form data
-  public editExpenses(expense, index) {
+  public editExpenses(expense: ExpenseType, index: number) {
     this.dialog.open(ExpenseModalComponent, {
       data: {
         title: `Edit ${expense.name}'s Expenses`,
@@ -75,10 +76,10 @@ export class ExpenseLayoutComponent implements OnInit {
 
     //Splitting for each person
     filteredArray.forEach((obj) => {
-      const amount = average - obj.amount;
+      const amount = Math.abs(average - obj.amount);
       const value = amount < 0 ? "is owed" : "owes";
       this.computationResult.push(
-        `${obj.name} ${value} ${Math.abs(amount)} dollars `
+        `${obj.name} ${value} ${amount.toFixed(2)} dollars `
       );
     });
   }
